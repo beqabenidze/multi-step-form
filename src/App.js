@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import { Context } from "./context";
+import { useState, useEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import GlobalStyles from "./styled-components/GlobalStyles";
+import Info from "./components/stepOne";
+import { Helmet } from "react-helmet";
+import Header from "./components/header";
+
+const defaultTheme = {
+  background: "#F2F2F2",
+};
 
 function App() {
+  const [mobile, setMobile] = useState(window.innerWidth > 1000 ? false : true);
+  useEffect(() => {
+    const handleSize = () => {
+      window.innerWidth > 1000 ? setMobile(false) : setMobile(true);
+    };
+
+    window.addEventListener("resize", handleSize);
+    return () => window.removeEventListener("resize", handleSize);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider value={{ mobile, setMobile }}>
+      <ThemeProvider theme={defaultTheme}>
+        <BodyWrapper>
+          <GlobalStyles />
+          <Helmet>
+            <link
+              href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap"
+              rel="stylesheet"
+            />
+          </Helmet>
+          <Routes>
+            <Route path="/" element={<Info />} />
+          </Routes>
+        </BodyWrapper>
+      </ThemeProvider>
+    </Context.Provider>
   );
 }
 
 export default App;
+
+const BodyWrapper = styled.div`
+  height: 100%;
+`;
