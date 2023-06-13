@@ -1,15 +1,15 @@
 import React from "react";
-import StepOne from "../components/stepOne";
 import Wrapper from "../styled-components/wrapper.styled";
-import Header from "./header";
+import Header from "../components/header";
+import Info from "../components/Info";
 
-function Info() {
+function StepOne() {
   return (
     <Wrapper>
       <Header />
-      <StepOne />
+      <Info />
     </Wrapper>
   );
 }
 
-export default Info;
+export default StepOne;

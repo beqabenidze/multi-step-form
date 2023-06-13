@@ -16,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
         display: flex;
         justify-content: center;
         @media (min-width: 1000px){
-            padding: 100px;
+            padding: 50px;
         }
     }
     

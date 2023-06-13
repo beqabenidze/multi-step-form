@@ -6,10 +6,10 @@ import bgMobile from "../assets/bg-sidebar-mobile.svg";
 import bgDesktop from "../assets/bg-sidebar-desktop.svg";
 
 const pages = [
-  { num: "1", step: "step 1", title: "YOUR INFO", id: Math.random() },
-  { num: "2", step: "step 2", title: "SELECT PLAN", id: Math.random() },
-  { num: "3", step: "step 3", title: "ADD-ONES", id: Math.random() },
-  { num: "4", step: "step 4", title: "SUMMARY", id: Math.random() },
+  { num: "1", step: "step 1", title: "YOUR INFO" },
+  { num: "2", step: "step 2", title: "SELECT PLAN" },
+  { num: "3", step: "step 3", title: "ADD-ONES" },
+  { num: "4", step: "step 4", title: "SUMMARY" },
 ];
 
 function Header() {
@@ -40,17 +40,20 @@ const BgWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  background-color: white;
   height: 100%;
   @media only screen and (min-width: 1000px) {
     justify-content: initial;
+    width: 35%;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 10px;
   }
   img {
     width: 100vw;
     max-height: 200px;
     object-fit: cover;
     @media (min-width: 1000px) {
-      width: 35%;
-      max-width: 300px;
       height: auto;
       max-height: none;
       object-fit: cover;

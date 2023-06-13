@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background-color: white;
   max-width: 1000px;
-  height: 100%;
+  height: fit-content;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media only screen and (min-width: 1000px) {
+    flex-direction: row;
+    align-items: initial;
+    justify-content: space-between;
+    height: 100%;
     width: 80vw;
-    padding: 15px;
+    background-color: #fff;
     border-radius: 10px;
   }
   section {

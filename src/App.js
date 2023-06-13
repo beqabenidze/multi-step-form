@@ -3,12 +3,14 @@ import { Context } from "./context";
 import { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "./styled-components/GlobalStyles";
-import Info from "./components/stepOne";
 import { Helmet } from "react-helmet";
-import Header from "./components/header";
+import StepOne from "./pages/stepOne";
+import StepTwo from "./pages/stepTwo";
+import StepThree from "./pages/stepThree";
+import StepFour from "./pages/stepFour";
 
 const defaultTheme = {
-  background: "#F2F2F2",
+  background: "#EFF5FF",
 };
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
             />
           </Helmet>
           <Routes>
-            <Route path="/" element={<Info />} />
+            <Route path="/" element={<StepFour />} />
           </Routes>
         </BodyWrapper>
       </ThemeProvider>
