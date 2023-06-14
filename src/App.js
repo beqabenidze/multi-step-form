@@ -95,10 +95,10 @@ function App() {
             />
           </Helmet>
           <Routes>
-            <Route path="/" element={<StepOne />} />
-            <Route path="/select" element={<StepTwo />} />
-            <Route path="/pick" element={<StepThree />} />
-            <Route path="/finish" element={<StepFour />} />
+            <Route path="/multi-step-form/" element={<StepOne />} />
+            <Route path="/multi-step-form/select" element={<StepTwo />} />
+            <Route path="/multi-step-form/pick" element={<StepThree />} />
+            <Route path="/multi-step-form/finish" element={<StepFour />} />
           </Routes>
         </BodyWrapper>
       </ThemeProvider>

@@ -30,16 +30,16 @@ function Footer() {
   useEffect(() => {
     switch (step) {
       case 0:
-        navigate("/");
+        navigate("/multi-step-form/");
         break;
       case 1:
-        navigate("/select");
+        navigate("/multi-step-form/select");
         break;
       case 2:
-        navigate("/pick");
+        navigate("/multi-step-form/pick");
         break;
       case 3:
-        navigate("/finish");
+        navigate("/multi-step-form/finish");
         break;
       default:
         break;
