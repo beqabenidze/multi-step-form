@@ -2,37 +2,42 @@ import React from "react";
 import Board from "../styled-components/board.styled";
 import Footer from "./footer";
 import styled from "styled-components";
+import { Context } from "../context";
+import { useContext } from "react";
 
 function Pick() {
+  const { pick, setPick } = useContext(Context);
   return (
     <Board>
       <h1>Pick add-ons</h1>
       <p>Add-ons help enhance your gaming experience.</p>
       <PickDiv>
-        <div>
-          <input type="checkBox"></input>
-          <aside>
-            <h4>Online service</h4>
-            <h5>Access to multiplayer games</h5>
-          </aside>
-          <span>+$1/mo</span>
-        </div>
-        <div>
-          <input type="checkBox"></input>
-          <aside>
-            <h4>Larger storage</h4>
-            <h5>Extra 1TB of cloud save</h5>
-          </aside>
-          <span>+$2/mo</span>
-        </div>
-        <div>
-          <input type="checkBox"></input>
-          <aside>
-            <h4>Customizable profile</h4>
-            <h5>Custom theme on your profile</h5>
-          </aside>
-          <span>+$2/mo</span>
-        </div>
+        {pick.map((item, index) => {
+          return (
+            <div
+              key={Math.random()}
+              style={{
+                borderColor: item.clicked == true ? "#483EFF" : "#d6d9e6",
+                backgroundColor: item.clicked == true ? "#EFF5FF" : "#FFF",
+              }}
+            >
+              <input
+                type="checkBox"
+                checked={pick[index].clicked}
+                onChange={() => {
+                  const clone = [...pick];
+                  clone[index].clicked = !clone[index].clicked;
+                  setPick(clone);
+                }}
+              ></input>
+              <aside>
+                <h4>{item.h4}</h4>
+                <h5>{item.h5}</h5>
+              </aside>
+              <span>{item.span}</span>
+            </div>
+          );
+        })}
       </PickDiv>
       <Footer />
     </Board>

@@ -14,14 +14,23 @@ const pages = [
 
 function Header() {
   const context = useContext(Context);
+  const { step } = useContext(Context);
+
   return (
     <BgWrapper>
       <img src={context.mobile ? bgMobile : bgDesktop} />
       <PageWrapper>
-        {pages.map((page) => {
+        {pages.map((page, index) => {
           return (
-            <div>
-              <section key={page.id}>{page.num}</section>
+            <div key={Math.random()}>
+              <section
+                style={{
+                  backgroundColor: step == index ? "#BEE2FD" : null,
+                  color: step == index ? "black" : "white",
+                }}
+              >
+                {page.num}
+              </section>
               <aside>
                 <span>{page.step}</span>
                 <h3>{page.title}</h3>
@@ -81,6 +90,8 @@ const PageWrapper = styled.div`
     display: flex;
     height: 50px;
     gap: 10px;
+    section {
+    }
     span {
       color: #abbcff;
     }
@@ -88,10 +99,8 @@ const PageWrapper = styled.div`
       color: white;
     }
   }
-
   aside {
     display: none;
-
     @media only screen and (min-width: 1000px) {
       display: flex;
       flex-direction: column;

@@ -1,30 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import Board from "../styled-components/board.styled";
 import Footer from "./footer";
 import styled from "styled-components";
+import { Context } from "../context";
+import { useContext } from "react";
+import { useEffect } from "react";
 
-function Finish({ setConfirmed }) {
+function Finish() {
+  const context = useContext(Context);
+  const clicked = context.pick.filter((item) => item.clicked == true);
+  const selected = context.select.filter((item) => item.selected == true);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let updatedTotal = 0;
+
+    selected.forEach((item) => {
+      updatedTotal += parseInt(item.h5.match(/\d+/)[0]);
+    });
+
+    clicked.forEach((item) => {
+      updatedTotal += parseInt(item.span.match(/\d+/)[0]);
+    });
+
+    setTotal(updatedTotal);
+  }, [selected]);
+
   return (
     <Board>
       <h1>Finishing up</h1>
       <p>Double-check everything looks OK before confirming.</p>
       <FinishDiv>
-        <div>
-          <h4>Arcade (Monthly)</h4>
-          <span>+$9/mo</span>
-        </div>
+        {selected.map((item) => {
+          return (
+            <div key={Math.random()}>
+              <h4>{item.h4} (Monthly)</h4>
+              <span>{item.h5}</span>
+            </div>
+          );
+        })}
+
         <hr></hr>
-        <div>
-          <h5>Online service</h5>
-          <span>+$1/mo</span>
-        </div>
-        <div>
-          <h5>Online service fedge</h5>
-          <span>+$2/mo</span>
-        </div>
+        {clicked.map((item) => {
+          return (
+            <div key={Math.random()}>
+              <h5>{item.h4}</h5>
+              <span>{item.span}</span>
+            </div>
+          );
+        })}
+
         <aside>
           <h5>Total (per month)</h5>
-          <span>+$12/mo</span>
+          <span>{`+$${total}/mo`}</span>
         </aside>
       </FinishDiv>
       <Footer />

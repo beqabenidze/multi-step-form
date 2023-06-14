@@ -3,14 +3,15 @@ import Wrapper from "../styled-components/wrapper.styled";
 import Header from "../components/header";
 import Finish from "../components/finish";
 import Thanks from "../components/thanks";
+import { Context } from "../context";
+import { useContext } from "react";
 
 function StepFour() {
-  const [confirmed, setConfirmed] = useState(false);
+  const { confirmed } = useContext(Context);
   return (
     <Wrapper>
       <Header />
-      {/* <Finish /> */}
-      <Thanks />
+      {confirmed ? <Thanks /> : <Finish />}
     </Wrapper>
   );
 }

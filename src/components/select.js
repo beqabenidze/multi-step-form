@@ -1,38 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Board from "../styled-components/board.styled";
 import Footer from "./footer";
 import styled from "styled-components";
-import arcade from "../assets/icon-arcade.svg";
-import advanced from "../assets/icon-advanced.svg";
-import pro from "../assets/icon-pro.svg";
+import { useEffect } from "react";
+
+import { Context } from "../context";
+import { useContext } from "react";
 
 function Select() {
+  const { select, setSelect } = useContext(Context);
+
   return (
     <Board>
       <h1>Select your plan</h1>
       <p>You have the option of monthly or yearly billing.</p>
       <SelectDiv>
-        <div>
-          <img src={arcade} />
-          <aside>
-            <h4>Arcade</h4>
-            <h5>$9/mo</h5>
-          </aside>
-        </div>
-        <div>
-          <img src={advanced} />
-          <aside>
-            <h4>Arcade</h4>
-            <h5>$12/mo</h5>
-          </aside>
-        </div>
-        <div>
-          <img src={pro} />
-          <aside>
-            <h4>Arcade</h4>
-            <h5>$15/mo</h5>
-          </aside>
-        </div>
+        {select.map((item, index) => {
+          return (
+            <div
+              key={Math.random()}
+              onClick={() => {
+                {
+                  select.map((item) => (item.selected = false));
+                }
+                const clone = [...select];
+                clone[index].selected = !clone[index].selected;
+                setSelect(clone);
+              }}
+              style={{
+                borderColor: item.selected == true ? "#483EFF" : "#d6d9e6",
+                backgroundColor: item.selected == true ? "#EFF5FF" : "#FFF",
+              }}
+            >
+              <img src={item.src} />
+              <aside>
+                <h4>{item.h4}</h4>
+                <h5>{item.h5}</h5>
+              </aside>
+            </div>
+          );
+        })}
       </SelectDiv>
       <Footer />
     </Board>

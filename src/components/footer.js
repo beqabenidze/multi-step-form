@@ -1,11 +1,66 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { Context } from "../context";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const { step, setStep } = useContext(Context);
+  const { setConfirmed } = useContext(Context);
+  const { select } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    if (!(step === 1 && select.every((item) => item.selected === false))) {
+      if (step !== 3) {
+        setStep(step + 1);
+      }
+    }
+    if (step == 3) {
+      setConfirmed(true);
+    }
+  };
+
+  const handleBack = () => {
+    if (step !== 0) {
+      setStep(step - 1);
+    }
+  };
+
+  useEffect(() => {
+    switch (step) {
+      case 0:
+        navigate("/");
+        break;
+      case 1:
+        navigate("/select");
+        break;
+      case 2:
+        navigate("/pick");
+        break;
+      case 3:
+        navigate("/finish");
+        break;
+      default:
+        break;
+    }
+  }, [step]);
+
+  useEffect(() => {
+    localStorage.setItem("step", JSON.stringify(step));
+  }, [step]);
+
   return (
     <Foter>
-      <BackButton>GO BACK</BackButton>
-      <NextButton>NEXT STEP</NextButton>
+      <BackButton
+        style={{ display: step == 0 ? "none" : "initial" }}
+        onClick={handleBack}
+      >
+        GO BACK
+      </BackButton>
+      <NextButton onClick={handleNext}>
+        {step === 3 ? "CONFIRM" : "NEXT STEP"}
+      </NextButton>
     </Foter>
   );
 }
@@ -22,12 +77,15 @@ const Foter = styled.div`
   padding: 20px max(10px, 10vw);
   bottom: 0;
   left: 0;
+  button {
+    cursor: pointer;
+  }
   @media only screen and (min-width: 1000px) {
     position: absolute;
     width: 95%;
     left: auto;
     padding: 20px;
-    bottom: 40px;
+    bottom: 20px;
     right: 20px;
   }
 `;
