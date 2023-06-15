@@ -14,7 +14,6 @@ const pages = [
 
 function Header() {
   const context = useContext(Context);
-  const { step } = useContext(Context);
 
   return (
     <BgWrapper>
@@ -25,8 +24,8 @@ function Header() {
             <div key={Math.random()}>
               <section
                 style={{
-                  backgroundColor: step == index ? "#BEE2FD" : null,
-                  color: step == index ? "black" : "white",
+                  backgroundColor: context.step == index ? "#BEE2FD" : null,
+                  color: context.step == index ? "black" : "white",
                 }}
               >
                 {page.num}

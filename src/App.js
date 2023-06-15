@@ -49,6 +49,7 @@ function App() {
     { src: advanced, h4: "Advanced", h5: "$12/mo", selected: false },
     { src: pro, h4: "Pro", h5: "$15/mo", selected: false },
   ]);
+  const [valid, setValid] = useState(false);
 
   useEffect(() => {
     const handleSize = () => {
@@ -83,6 +84,8 @@ function App() {
         setPick,
         select,
         setSelect,
+        valid,
+        setValid,
       }}
     >
       <ThemeProvider theme={defaultTheme}>

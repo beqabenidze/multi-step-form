@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Board from "../styled-components/board.styled";
 import Footer from "./footer";
 import styled from "styled-components";
-import { useEffect } from "react";
-
 import { Context } from "../context";
 import { useContext } from "react";
 

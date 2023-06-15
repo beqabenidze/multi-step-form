@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Board from "../styled-components/board.styled";
 import styled from "styled-components";
 import Footer from "./footer";
 import { useForm } from "react-hook-form";
+import { Context } from "../context";
 
 function Info() {
+  const { setValid } = useContext(Context);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const onSubmit = () => {
-    console.log("adawda");
+  useEffect(() => {
+    const reset = () => {
+      setValid(false);
+    };
+    reset();
+  }, []);
+
+  const onSubmit = (data) => {
+    if (
+      data.name != undefined &&
+      data.address != undefined &&
+      data.number != undefined
+    ) {
+      setValid(true);
+    }
   };
+
+  const type = "submit";
+
   return (
     <Board>
       <h1>Personal info</h1>
@@ -39,7 +57,7 @@ function Info() {
         <div>
           <h4>Email Address</h4>
           <input
-            placeholder="e.g. stephenking@lorem.com"
+            placeholder="e.g. stephenking@.com"
             {...register("address", {
               required: { value: true, message: "Can’t be empty" },
             })}
@@ -56,6 +74,7 @@ function Info() {
         <div>
           <h4>Phone Number</h4>
           <input
+            type="number"
             placeholder="e.g. +1 234 567 890"
             {...register("number", {
               required: { value: true, message: "Can’t be empty" },
@@ -70,13 +89,13 @@ function Info() {
             <span style={{ right: "20px", top: "35px" }}>Can’t be empty</span>
           )}
         </div>
+        <Footer type={type} />
       </Form>
-      <Footer></Footer>
     </Board>
   );
 }
 
-const Form = styled.div`
+const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -97,6 +116,11 @@ const Form = styled.div`
     outline: none;
     border: 1px solid #d6d9e6;
     padding: 0 10px;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
   span {
     color: red;

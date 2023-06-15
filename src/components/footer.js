@@ -4,20 +4,21 @@ import { Context } from "../context";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Footer() {
-  const { step, setStep } = useContext(Context);
-  const { setConfirmed } = useContext(Context);
-  const { select } = useContext(Context);
+function Footer({ type }) {
+  const { valid, setValid, step, setStep, setConfirmed, select } =
+    useContext(Context);
   const navigate = useNavigate();
 
   const handleNext = () => {
-    if (!(step === 1 && select.every((item) => item.selected === false))) {
-      if (step !== 3) {
-        setStep(step + 1);
+    if (valid) {
+      if (!(step === 1 && select.every((item) => item.selected === false))) {
+        if (step !== 3) {
+          setStep(step + 1);
+        }
       }
-    }
-    if (step == 3) {
-      setConfirmed(true);
+      if (step == 3) {
+        setConfirmed(true);
+      }
     }
   };
 
@@ -28,6 +29,7 @@ function Footer() {
   };
 
   useEffect(() => {
+    setValid(valid);
     switch (step) {
       case 0:
         navigate("/multi-step-form/");
@@ -58,7 +60,7 @@ function Footer() {
       >
         GO BACK
       </BackButton>
-      <NextButton onClick={handleNext}>
+      <NextButton type={JSON.stringify({ type })} onClick={handleNext}>
         {step === 3 ? "CONFIRM" : "NEXT STEP"}
       </NextButton>
     </Foter>
@@ -70,7 +72,7 @@ export default Footer;
 const Foter = styled.div`
   width: 100%;
   position: fixed;
-  background-color: #fff;
+  background-color: "#FFF";
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -85,7 +87,7 @@ const Foter = styled.div`
     width: 95%;
     left: auto;
     padding: 20px;
-    bottom: 20px;
+    bottom: 10px;
     right: 20px;
   }
 `;
